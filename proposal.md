@@ -15,7 +15,7 @@
 ## Wireframe
 
 (Your wireframes go here. Preferably two or more)
-![alternate text](URL "https://github.com/flema1/game1/blob/master/GameWireFrame.jpg")
+![alternate text](GameWireFrame.jpg)
 
 ## Initial thoughts on game structure
 
