@@ -1,4 +1,4 @@
-*** Name / Date ***
+*** Franklin Lema / 7/11/17 ***
 
 # JS-Uno Proposal
 
