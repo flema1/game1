@@ -14,7 +14,7 @@
 
 ## Wireframe
 
-(Your wireframes go here. Preferably two or more)
+
 ![alternate text](GameWireFrame.jpg)
 
 ## Initial thoughts on game structure
