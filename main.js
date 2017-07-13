@@ -3,6 +3,8 @@ console.log("Uno is here!");
 
 let colorArray= ["red", "green", "blue", "yellow"],
     cardDeck =new Array(),
+    shuffledCardDeck =new Array(),
+    //perviouslyUsedIndexes =new array(),
     oneThruNine =new Array(10).fill(null);
 
  let UnoCard=function(colour, numero, effecto){
@@ -16,6 +18,7 @@ colorArray.forEach(function(color) {
     for (let number in oneThruNine){
         cardValue=parseInt(number); 
         let newNumberCard= new UnoCard(color, cardValue, null); 
+
         if (cardValue===0){
             let newActionCard= new UnoCard(color, null, "DrawTwoCards");
                 cardDeck.push(newActionCard);
@@ -28,15 +31,12 @@ colorArray.forEach(function(color) {
                 cardDeck.push(newActionCard);
                 cardDeck.push(newNumberCard);
         }
+
         else{
                 cardDeck.push(newNumberCard);
                 cardDeck.push(newNumberCard);
-        }           
+        }    
     }
-    let newWildCard= new UnoCard(null, null, "Wild"); 
-    let newDrawFourCard= new UnoCard(null, null, "DrawFour"); 
-        cardDeck.push(newWildCard);
-        cardDeck.push(newDrawFourCard);
 });
 
 
@@ -45,21 +45,35 @@ colorArray.forEach(function(color) {
 8 Reverse cards – 2 each in blue, green, red, and yellow
 8 Skip cards – 2 each in blue, green, red, and yellow  
 
-4x Wild
-This card represents all four colors, and can be placed on any card. The player 
-has to state which color it will represent for the next player. It can be played
- regardless of whether another card is available.
- 
-4x Wild Draw Four
-This acts just like the wild card except that the next player also has to draw 
-four cards. With this card, you must have no other alternative cards to play that 
-matches the color of the card previously played. If you play this card illegally,
- you may be challenged by the other player to show your hand. If guilty, you need 
- to draw 4 cards. If not, the challenger needs to draw 6 cards instead.     */
+how to target src using jquery
+     */
 
 
-console.log (cardDeck); 
-console.log (cardDeck.length); 
+//console.log (cardDeck); 
+//console.log (cardDeck.length); 
 
 
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomIndex(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+}
 
+
+var shuffledDeck =function(index){
+    //let index=getRandomIndex(0, 100);
+    //perviouslyUsedIndexes.push(index);  
+    if (shuffledCardDeck.indexOf(cardDeck[index]) === -1){
+            shuffledCardDeck.push(cardDeck[index]); 
+            return cardDeck[index]; 
+    }
+    else {
+        return "weee!";
+    }
+       
+}
+
+console.log (shuffledDeck(3)); 
+
+console.log (shuffledDeck(3)); 
