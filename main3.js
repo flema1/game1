@@ -3,7 +3,7 @@ console.log("Uno is here!");
 
 let colorArray= ["red", "green", "blue", "yellow"],
     cardDeck =new Array(),
-    shuffledCardDeck =new Array(),
+    shuffledCardDeck;// =new Array(),
     //perviouslyUsedIndexes =new array(),
     oneThruNine =new Array(10).fill(null);
 
@@ -62,12 +62,34 @@ function getRandomIndex(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;  //The maximum is inclusive and the minimum is inclusive 
 }
 
+
+let x=0; 
+
+
+var shuffledDeck = cardDeck.map(function(obj){
+    var shuffleCard = {};
+    shuffleCard=obj;
+    shuffleCard.id=x;
+     x++;  
+    return shuffleCard; 
+    
+}
+
+);
+/*
+var reformattedArray = kvArray.map(function(obj) { 
+   var rObj = {};
+   rObj[obj.key] = obj.value;
+   return rObj;
+});*/
+
+/*
 var counter=0; 
 
 //var shuffledDeck =function(index){
 var checkMatch= function(key){
   //console.log (key.id);
-  for (let index in shuffledCardDeck){
+  for (let index=0; index<shuffledCardDeck.length;index++ ){
       if (typeof shuffledCardDeck[index]!=='undefined'){
 if (shuffledCardDeck[index].id===key.id){
       return true;
@@ -78,14 +100,18 @@ if (shuffledCardDeck[index].id===key.id){
   }  
   return false; 
 }
+*/
 //checkMatch(shuffledcard[0]);
 
 
 //
+   /*
+for (let card=0; card<cardDeck.length; card++){
    
-        for (let card in cardDeck){
     cardDeck[card].id=card; //assigning unique id to each card
-    var index= getRandomIndex(0, 108);
+   //console.log(cardDeck[card].id); //=card
+   console.log(card); */
+   /* let  index= getRandomIndex(0, 108);
 if (  checkMatch(cardDeck[index]) ){
    // console.log ("here"); 
     
@@ -93,14 +119,15 @@ if (  checkMatch(cardDeck[index]) ){
   else{
    // console.log ("not here"); 
     shuffledCardDeck.push(cardDeck[card]);
-  }
+  }*/
 
-}
-
-//shuffledDeck();
-console.log (shuffledCardDeck); 
-//console.log (counter); 
+//}
 //console.log (cardDeck); 
-console.log (shuffledCardDeck.length); 
+//shuffledDeck();
+//console.log (shuffledCardDeck); 
+//console.log (counter); 
+console.log (cardDeck); 
+console.log (cardDeck.length); 
+//console.log (shuffledCardDeck.length); 
 
 
