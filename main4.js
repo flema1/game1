@@ -5,7 +5,9 @@ let colorArray= ["red", "green", "blue", "yellow"],
     cardDeck =new Array(),
     shuffledCardDeck =new Array(),
     //perviouslyUsedIndexes =new array(),
-    oneThruNine =new Array(10).fill(null);
+    oneThruNine =new Array(10).fill(null),
+    playerHand=new Array(),
+    computerHand=new Array();
 
 let UnoCard=function( num, colour, CardValue, effecto){
     this.id=num,
@@ -106,26 +108,8 @@ if (shuffledCardDeck[index].id===key.id){
 //checkMatch(shuffledcard[0]);
 
 
-//
-   /*
-for (let card=0; card<cardDeck.length; card++){
-   
-    //cardDeck[card].id=card; //assigning unique id to each card
-   //console.log(cardDeck[card].id); //=card
-  // console.log(card); 
-    let  index= getRandomIndex(0, 108);
-if (checkMatch(cardDeck[index])){
-    console.log ("here"); 
-    
-  }
-  else{
-   // console.log ("not here"); 
-    shuffledCardDeck.push(cardDeck[card]);
-  }
-
-}*/
-console.log (cardDeck); 
-
+//console.log (cardDeck); 
+var shuffledeck=function(){
 for (let i=0; i<cardDeck.length; i++){
     let randomIndex=getRandomIndex(0, 100);
    // console.log(randomIndex +" "+ i); 
@@ -134,10 +118,41 @@ for (let i=0; i<cardDeck.length; i++){
     cardDeck[i]=cardDeck[randomIndex]; 
     cardDeck[randomIndex]=temp; 
 };
+}
+shuffledeck(); 
+
 //console.log (cardDeck); 
 //shuffledDeck();
 //console.log (shuffledCardDeck); 
 //console.log (counter); 
-console.log (cardDeck); 
-console.log (cardDeck.length); 
+
+
+let currentCardIndex=0; 
+let drawACard=function(){
+    console.log ("card being drawn");
+    cardDrawn={};
+    cardDrawn=cardDeck[currentCardIndex]; 
+   // console.log (cardDrawn);
+    currentCardIndex++;  
+    return cardDrawn;
+}
+
+let startCards=function(){
+    for (let numberOfCard=0;numberOfCard<7; numberOfCard++){
+        playerHand.push(drawACard());
+        computerHand.push(drawACard());
+    }
+}
+
+startCards();
+console.log( currentCardIndex);
+console.log(  playerHand);
+console.log(  computerHand);
+
+
+//console.log (cardDeck); 
+//console.log (drawACard());
+//console.log (drawACard());
+//console.log (drawACard());
+//console.log (cardDeck.length); 
 //console.log (shuffledCardDeck.length); 
