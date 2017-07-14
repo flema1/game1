@@ -7,8 +7,8 @@ let colorArray= ["red", "green", "blue", "yellow"],
     //perviouslyUsedIndexes =new array(),
     oneThruNine =new Array(10).fill(null);
 
-let UnoCard=function(colour, numero, effecto){
-  
+let UnoCard=function( colour, numero, effecto){
+    this.id=null,
     this.color=colour,
     this.number=numero,
     this.special=effecto
@@ -51,7 +51,7 @@ how to target src using jquery
      */
 
 
-console.log (cardDeck); 
+//console.log (cardDeck); 
 console.log (cardDeck.length); 
 
 
@@ -59,33 +59,48 @@ console.log (cardDeck.length);
 function getRandomIndex(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  return Math.floor(Math.random() * (max - min + 1)) + min;  //The maximum is inclusive and the minimum is inclusive 
 }
 
 var counter=0; 
 
-var shuffledDeck =function(index){
-    //
-    //perviouslyUsedIndexes.push(index);  
-    while (counter<108){
-        //let index=getRandomIndex(0, 108);
-            /*if (shuffledCardDeck.indexOf(cardDeck[index].index) === -1){
-            //   let card=cardDeck[index]; 
-            //    shuffledCardDeck[counter]=card;
-                //return cardDeck[index]; 
-                shuffledCardDeck.push(cardDeck[counter]); 
-            }
-            else{
-                return "weee!";
-             }*/
-            
-            console.log (cardDeck[counter].bob);
-           counter++;
+//var shuffledDeck =function(index){
+var checkMatch= function(key){
+  //console.log (key.id);
+  for (let index in shuffledCardDeck){
+      if (typeof shuffledCardDeck[index]!=='undefined'){
+if (shuffledCardDeck[index].id===key.id){
+      return true;
     }
+      }
     
-       
+    
+  }  
+  return false; 
 }
+//checkMatch(shuffledcard[0]);
+
+
+//
+   
+        for (let card in cardDeck){
+    cardDeck[card].id=card; //assigning unique id to each card
+    var index= getRandomIndex(0, 108);
+if (  checkMatch(cardDeck[index]) ){
+   // console.log ("here"); 
+    
+  }
+  else{
+   // console.log ("not here"); 
+    shuffledCardDeck.push(cardDeck[card]);
+  }
+
+}
+
 //shuffledDeck();
-//console.log (shuffledCardDeck); 
+console.log (shuffledCardDeck); 
 //console.log (counter); 
+//console.log (cardDeck); 
+console.log (shuffledCardDeck.length); 
+
 
