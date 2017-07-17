@@ -415,22 +415,7 @@ if (itsXsturn="computer"){
 
 
 
-  /* switch (autoColorChoice){
-            case 0:
-                color = "Sunday";
-                break;
-            case 1:
-                day = "Monday";
-                break;
-            case 2:
-                day = "Tuesday";
-                break;
-            case 3:
-                day = "Wednesday";
-                break;
-            //defualt?
-        }*/
-
+  
  //need function to check if player has "uno" cards left
         let callUno=function(hand){
             if (hand.length===1){
