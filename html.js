@@ -1,14 +1,11 @@
 $(document).ready(function(){
      
 const $startGame= $('<div id="startGame"/>').appendTo('body');
+$startGame.text("Play UNO!")
 const $startbutton= $('<button onclick="start();"/>').appendTo('#startGame');
 
 
-          //  $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); 
-//$firstDisplay.text('The overflow property specifies what to do if the content of an element exceeds the size of the element The overflow property specifies what to do if the content of an element exceeds the size of the element The overflow property specifies what to do if the content of an element exceeds the size of the element');
-//$thirdDiv.text('The overflow property specifies what to do if the content of an element exceeds the size of the element The overflow property specifies what to do if the content of an element exceeds the size of the element The overflow property specifies what to do if the content of an element exceeds the size of the element');
-//$firstDisplay.text('The overflow property specifies what to do if the content of an element exceeds the size of the element The overflow property specifies what to do if the content of an element exceeds the size of the element The overflow property specifies what to do if the content of an element exceeds the size of the element');
-
+         
 });////////dont delete. **************************
 
 let start=function(){
@@ -32,10 +29,15 @@ const $firstDisplay= $('<div id="one_display"/>').appendTo('#one');
 const $secondDiv= $('<div id="two"/>').appendTo('#parent');
 const $secondbutton= $('<button onclick="displayDiscardPile();"/>').appendTo('#two');
 const $secondDisplay= $('<div id="two_display"/>').appendTo('#two');
+
+
 const $computerbutton= $(`<div id="computer" onclick="whoseTurnIsIt('computer', false);"/>`).appendTo('#two');
     $computerbutton.text('computer');
 const $playerbutton= $(`<div id="player" onclick="whoseTurnIsIt('player', false);"/>`).appendTo('#two');
     $playerbutton.text('player');
+const $drawButton= $(`<div id="draw" onclick="draw();"/>`).appendTo('#two');
+ $drawButton.text('Draw');
+ 
 
 
 const $thirdDiv= $('<div id="three"/>').appendTo('#parent');
@@ -86,6 +88,8 @@ let checkActionCards=function(card){
 
 
 let displayCards= function(hand, target){
+
+
    //$('#one_display').text(hand[1].color);
    console.log (hand);
 
@@ -118,6 +122,7 @@ for (let card=0; card<hand.length; card++ ){
         
 
     }
+
  $unoCard.attr('id', id);
 
 let toDiscardPile=function(){
@@ -144,10 +149,14 @@ let toDiscardPile=function(){
      }
       displayDiscardPile(); 
     $(this).remove(); 
+    
 }
-if (hand===playerHand){
+
+
+if (hand===playerHand || hand===temp){
  $unoCard.on('click', toDiscardPile); 
 }
+
 
    
 }
@@ -175,7 +184,20 @@ let displayDiscardPile=function(){
         $unoCardD.text(`${card.special}`); 
     }
         $unoCardD.css("color", `${card.color}`);
-        if (discardPile.length>2){
-   $(' #two_display .unoCard').eq(0).remove(); 
+//         if (discardPile.length>2){
+//    $(' #two_display .unoCard').eq(0).remove(); 
+// }
 }
+  let temp=new Array();
+
+
+let draw= function(){
+    let card= drawACard(); 
+  
+    temp.push(card); 
+displayCards(temp, "#three_display")
+callUno( playerHand);
+temp=[]; 
+
+    playerHand.push(card); 
 }
