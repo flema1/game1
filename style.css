@@ -58,9 +58,18 @@ table {
     width: 100%;
     height: 33.33%;
     background: pink;
+    /*overflow: auto;
+    white-space: nowrap;
+    display: flex;*/
+}
+#one_display{
+    width: 90%;
+    height: 90%;
+    background: white;
     overflow: auto;
     white-space: nowrap;
 }
+
 #two {
     width: 100%;
     height: 33.33%;
@@ -72,4 +81,14 @@ table {
     background: crimson;
     overflow: auto;
     white-space: nowrap;
+}
+
+.unoCard{
+    height: 100px;
+    width: 50px; 
+    background: black; 
+    /*flex:1; */
+    display: inline-block;
+    margin: 5px;
+
 }
