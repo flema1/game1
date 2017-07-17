@@ -120,7 +120,7 @@ var shuffledeck=function(){
         cardDeck[randomIndex]=temp; 
     };
 }
-shuffledeck(); 
+shuffledeck(); //dont remove
 
 //console.log (cardDeck); 
 //shuffledDeck();
@@ -160,11 +160,13 @@ let startDiscardPile=function(){
     }
 };
 
-startDiscardPile();
+//startDiscardPile();
 
 console.log( currentCardIndex);
 //console.log( discardPile); 
 let topOfDiscardPile=function(){
+    //displayDiscardPile(); 
+    console.log( "discardPile  was activated" ); 
     return discardPile[discardPile.length-1]; 
 };
 
@@ -308,14 +310,19 @@ Wild cards:
         be placed on any card. The player has to state 
         which color it will represent for the next player.
         It can be played regardless of whether another card is available.*/
-
+let colorSwichedTo; 
 let SpecialCardWild=function(CurrentPlayer){//Wild
    // console.log (`${CurrentPlayer} played a  wild card`);
-    let colorSwichedTo=null; 
+    
         if(CurrentPlayer==="player"){
+ 
+            colorSwichedTo=  document.getElementById('input').value; 
+             // alert(colorSwichedTo); 
             //ask player for color input, asign to colorSwichedTo; ************************************
-                discardPile.push(new UnoCard(000, colorSwichedTo, null, "playedSpecialCardWild"));
-                console.log (`Wild card was played by ${CurrentPlayer} new color is ${autoColorChoice}`)
+               // discardPile.push(new UnoCard(000, colorSwichedTo, null, "Wild"));
+                console.log (`Wild card was played by ${CurrentPlayer} new color is ${colorSwichedTo}`)
+                //displayDiscardPile(); 
+              console.log (discardPile[discardPile.length-1]); 
 
                 return colorSwichedTo; 
         }
@@ -324,7 +331,7 @@ let SpecialCardWild=function(CurrentPlayer){//Wild
             let autoColorChoice=getRandomIndex(0, 3);
                 colorSwichedTo=colorArray[autoColorChoice];
                 // discardPile.push(new UnoCard(000, colorSwichedTo, null, "playedSpecialCardWild"));
-                duplicateDiscardPile.push(new UnoCard(000, colorSwichedTo, null, "playedSpecialCardWild"));
+                duplicateDiscardPile.push(new UnoCard(000, colorSwichedTo, null, "Wild"));
                 console.log (`Wild was played by ${CurrentPlayer} new color option is ${colorSwichedTo}`)
 
                 return colorSwichedTo;
@@ -395,6 +402,7 @@ if (bool===true){
 }
 // else{
      whoGoes=itsXsturn;// reassigning global variable for turn tracker
+      console.log(`its ${whoGoes} turn`);
 // }
     
     //return itsXsturn; 
@@ -441,6 +449,7 @@ if (bool===true){
             //remove card at specified index 
     let moveCardstoDiscardPile=function(hand, key){
        // hand.    
+        console.log ("moveCardstoDiscardPile was activated "); 
         var cardRemoved;
         let top0fDiscardPile=topOfDiscardPile(); 
             console.log (top0fDiscardPile); 
@@ -461,6 +470,8 @@ if (bool===true){
        }
     }
 
+
+     
 /*
  var array = [{y:"t", x:2},{y:"z",x:5},{y:"t",x: 9},{y:"k",x:5},{y:"t",x:11}];
  var removed;
@@ -564,17 +575,17 @@ let computerStratategyAI=function(computerHand){
 
 
 
-console.log ("---"); 
+//console.log ("---"); 
 //computerStratategyAI(computerHand);
-computerStratategyAI(computerHand);
+//computerStratategyAI(computerHand);
 
 //console.log(computerHand);
 //console.log (discardPile); 
 //console.log (cardDeck); 
-console.log (topOfDiscardPile() );
+//console.log (topOfDiscardPile() );
 
 //considerSpecialCards( computerStratategyAI(computerHand)); 
-   console.log( `${turnTracker("player")}`);
+  // console.log( `${turnTracker("player")}`);
 
 //console.log(whoseTurnIsIt() + "Hello"); 
 
