@@ -439,9 +439,42 @@ if (bool===true){
 
         //need function to move cards from hand to discardpile array
             //remove card at specified index 
-    let moveCardstoDiscardPile=function(hand){
+    let moveCardstoDiscardPile=function(hand, key){
        // hand.    
+        var cardRemoved;
+        let top0fDiscardPile=topOfDiscardPile(); 
+            console.log (top0fDiscardPile); 
+            console.log (hand);
+       for (let card=0; card<hand.length; card++){
+           if (hand[card][key]===top0fDiscardPile[key]){
+               cardRemoved=hand.splice(card, 1);
+               console.log ("bobo");
+                 console.log(cardRemoved);
+                 discardPile.push(cardRemoved[0]);
+                 console.log ("bob");
+                // console.log(hand[card][key]);
+                 //  discardPile.push(card);hand[card]
+                
+
+           }
+          
+       }
     }
+
+/*
+ var array = [{y:"t", x:2},{y:"z",x:5},{y:"t",x: 9},{y:"k",x:5},{y:"t",x:11}];
+ var removed;
+
+for (let i=0; i<array.length;i++){
+  if (array[i].x===5){
+      console.log (i);
+     removed=array.splice(i, 1)[0];
+     console.log (removed);
+      //console.log (array[i].x);
+  }
+ 
+}
+*/
 //var removed = myFish.splice(2, 0, 'drum');
 //index of 
 
@@ -488,24 +521,27 @@ duplicateDiscardPile=discardPile;
 
 
 let computerStratategyAI=function(computerHand){
-
    let computerStats =analyzeTheHand(computerHand);//recieving call back pass
    console.log( computerStats); 
 
    if (computerStats.numberMatches>computerStats.colorMatches){
-       console.log('numberMatches is greater than colorMatches'); 
+       console.log('numberMatches is greater than colorMatches');
+           moveCardstoDiscardPile(computerHand, "number" );  
    }
    else if (computerStats.colorMatches>computerStats.numberMatches){
        console.log(' colorMatches  greater than numberMatches'); 
+           moveCardstoDiscardPile(computerHand, "color"); 
    }
    else if (computerStats.colorMatches!==0 && computerStats.colorMatches===computerStats.numberMatches){
        console.log(' colorMatches and numberMatches are equal'); 
        let choice=getRandomIndex(0, 1);//returns a random number
        if (choice){
            console.log(' colorMatches is chosen');
+               moveCardstoDiscardPile(computerHand, "color"); 
        }
        else {
             console.log(' numberMatches is chosen');
+                moveCardstoDiscardPile(computerHand,"number"); 
        }
 
    }
@@ -525,9 +561,12 @@ let computerStratategyAI=function(computerHand){
 };
 
 
+
+
+
 console.log ("---"); 
 //computerStratategyAI(computerHand);
-//computerStratategyAI(computerHand);
+computerStratategyAI(computerHand);
 
 //console.log(computerHand);
 //console.log (discardPile); 
@@ -541,5 +580,9 @@ console.log (topOfDiscardPile() );
 
 
 //console.log (whoseTurnIsIt(turnTracker("computer"), true)); 
-computerStratategyAI(new handStats(0,0, 0));
+//let x=new handStats(3,3, 4); 
+//console.log (x);
+//computerStratategyAI(x);
 
+console.log (discardPile); 
+console.log (computerHand.length);
