@@ -8,6 +8,7 @@
 
 console.log("Uno is here!"); 
 
+let itsthisplayersTurn=null; 
 
 let colorArray= ["red", "green", "blue", "yellow"],
     cardDeck =new Array(),
@@ -16,6 +17,9 @@ let colorArray= ["red", "green", "blue", "yellow"],
     playerHand=new Array(),
     computerHand=new Array(),
     discardPile=new Array();
+
+    duplicateComputerHand=new Array();
+    duplicateDiscardPile=new Array();
 
 let UnoCard=function( num, colour, CardValue, effecto){
     this.id=num,
@@ -147,7 +151,7 @@ distributeSevenCards();
 let startDiscardPile=function(){
     let card=drawACard(); 
     if (card.special===null){
-        discardPile.push(card);
+       discardPile.push(card);
     }
     else if (card.special!==null){//if the first card drawn was an action card then put back and redraw
         console.log("null");
@@ -163,6 +167,10 @@ console.log( currentCardIndex);
 let topOfDiscardPile=function(){
     return discardPile[discardPile.length-1]; 
 };
+
+
+// console.log (discardPile); 
+// console.log (topOfDiscardPile()); 
 
 let checkForActionCards= function(card){
     if (card.special==null){
@@ -199,6 +207,7 @@ let checkColorMatches= function(card){
 
 let computerHandStats=new handStats; //(ActionCards,cardNumberMatches, cardColorMatches); 
 var analyzeTheHand=function(hand){//recieves computer's hand array 
+ 
     let ActionCards=0; 
      let cardNumberMatches=0; 
       let cardColorMatches=0; 
@@ -206,22 +215,22 @@ var analyzeTheHand=function(hand){//recieves computer's hand array
     for (let card=0; card<hand.length; card++){
         if (checkForActionCards(hand[card])){
              ActionCards++;
-           console.log(hand[card]);
+           //console.log(hand[card]);
         }
         if (checkNumberMatches(hand[card])){
-            console.log(hand[card]);
+           // console.log(hand[card]);
              cardNumberMatches++;
         }
         if (checkColorMatches(hand[card])){
-               console.log(hand[card]);
+           //    console.log(hand[card]);
              cardColorMatches++;
         }
     }
-     console.log ( ActionCards+" ActionCards "+  cardNumberMatches+ " cardNumberMatches "+
-     cardColorMatches+" cardColorMatches" + " mom"); 
-    console.log(hand.length);
+    // console.log ( ActionCards+" ActionCards "+  cardNumberMatches+ " cardNumberMatches "+
+     //cardColorMatches+" cardColorMatches" + " mom"); 
+    //console.log(hand.length);
     computerHandStats=new handStats(ActionCards,cardNumberMatches, cardColorMatches); //making hand stats global
-    console.log (computerHandStats); 
+  //  console.log (computerHandStats); 
     return new handStats(ActionCards,cardNumberMatches, cardColorMatches);
 };
 
@@ -230,7 +239,7 @@ var analyzeTheHand=function(hand){//recieves computer's hand array
 
 
 
-analyzeTheHand(computerHand);
+//analyzeTheHand(computerHand);
 //console.log ( computerHandStats);
 //console.log(computerHand); 
 //console.log (checkCardForEffect( discardPile[0])); 
@@ -250,20 +259,26 @@ Action cards (for each color):
     2x Draw Two
         When a person places this card, the next 
         player will have to pick up two cards and forfeit his/her turn.*/
-
-let SpecialCardDrawTwo=function(player){
+             
+let SpecialCardDrawTwoCards=function(player){
+     console.log(`${player} set down-draw2cards- ${turnTracker(player)} draws 2cards + forfeits their turn`)
+    
     let deck=null; 
-    if (turnTracker(player)){
-        deck="playerHand";
-    //playerHand=new Array(),
-    //computerHand=new Array(), 
-}else{
-     deck="computerHand";
-}
+        //deck=`${turnTracker(player)}Hand`; 
+    
+    if (player==="player"){
+        deck=playerHand; 
+    }
+    else if (player==="computer"){
+     
+        deck=computerHand; 
+    }
     deck.push(drawACard()); 
     deck.push(drawACard()); 
-    return turnTracker(player);//and forfeit his/her turn.*********************
+
+    return player;//and forfeit his/her turn.*********************
 }
+
 //console.log(computerHand);    
 //drawTwo(computerHand);
 //console.log(computerHand);  
@@ -271,7 +286,9 @@ let SpecialCardDrawTwo=function(player){
 
     /*2x Reverse
         If going clockwise, switch to counterclockwise or vice versa*/
-let SpecialCardReverse=function(player){
+                //ReverseCards
+let SpecialCardReverseCards=function(player){
+  console.log( `${player} has placed ReverseCards, its ${turnTracker(player)}'s turn` );
    return turnTracker(player);
 }
    /* 2x Skip
@@ -279,9 +296,9 @@ let SpecialCardReverse=function(player){
         skip their turn. If turned up at the beginning, the first 
         player loses his/her turn.*/
 
-let SpecialCardSkipTwo=function(player){
-       console.log(`${player} set down-SkipTwo- skip computer's turn`)
-       return turnTracker(player);   
+let SpecialCardSkipCards=function(player){
+       console.log(`${player} set down-"Skip". Skip ${turnTracker(player)}'s turn. its ${player}'s turn`);
+       return player;   
 };
 
 /*
@@ -292,20 +309,27 @@ Wild cards:
         which color it will represent for the next player.
         It can be played regardless of whether another card is available.*/
 
-let SpecialCardWild=function(CurrentPlayer){
+let SpecialCardWild=function(CurrentPlayer){//Wild
+   // console.log (`${CurrentPlayer} played a  wild card`);
     let colorSwichedTo=null; 
         if(CurrentPlayer==="player"){
-            //ask player for color input, asign to colorSwichedTo;
+            //ask player for color input, asign to colorSwichedTo; ************************************
                 discardPile.push(new UnoCard(000, colorSwichedTo, null, "playedSpecialCardWild"));
+                console.log (`Wild card was played by ${CurrentPlayer} new color is ${autoColorChoice}`)
+
                 return colorSwichedTo; 
         }
         else if (CurrentPlayer==="computer"){
+        
             let autoColorChoice=getRandomIndex(0, 3);
                 colorSwichedTo=colorArray[autoColorChoice];
-                discardPile.push(new UnoCard(000, colorSwichedTo, null, "playedSpecialCardWild"));
+                // discardPile.push(new UnoCard(000, colorSwichedTo, null, "playedSpecialCardWild"));
+                duplicateDiscardPile.push(new UnoCard(000, colorSwichedTo, null, "playedSpecialCardWild"));
+                console.log (`Wild was played by ${CurrentPlayer} new color option is ${colorSwichedTo}`)
+
                 return colorSwichedTo;
         }
-        
+            
 } 
 
 
@@ -319,14 +343,24 @@ let SpecialCardWild=function(CurrentPlayer){
         the other player to show your hand. If guilty, you need to draw 4 cards. 
         If not, the challenger needs to draw 6 cards instead.
  */
-let SpecialCardWildDrawFour=function(CurrentPlayer, AskedMoreCardsToPlay){
-        if (AskedMoreCardsToPlay){
-            console.log(SpecialCardWild(CurrentPlayer));
-            let isNext=turnTracker(CurrentPlayer);
+
+let SpecialCardDrawFour=function(player){
+        //if (AskedMoreCardsToPlay){
+            console.log(SpecialCardWild(player));
+            
+   console.log(`${player} set down-draw4- ${turnTracker(player)} draws 4cards`)
+    
+            if (player==="player"){
+        deck=computerHand; 
+    }
+    else if (player==="computer"){
+        deck=playerHand; 
+    }
+
                 for (let zeroThruFour=0;zeroThruFour<4; zeroThruFour++){
-                    isNext.push(drawACard()); 
+                    deck.push(drawACard()); 
                 }
-        }
+        //}
 }
 
 //who will go first? Player or Computer? (based on button input);
@@ -352,11 +386,18 @@ let whoGoes="computer"; //who goes first is decided by button press
 for (let i=0; i<10; i++){
    // turnTracker(whoGoes); 
    //console.log(SpecialCardSkipTwo(whoGoes));
-   console.log(SpecialCardWild(whoGoes));
+  //console.log(SpecialCardWild(whoGoes));
 }
 
-let whoseTurnIsIt=function(){//call when switching turns 
-    return whoGoes; 
+let whoseTurnIsIt=function(itsXsturn, bool){//call when switching turns 
+if (bool===true){
+    console.log(`action card was played. its now${itsXsturn}s turn`); 
+}
+// else{
+     whoGoes=itsXsturn;// reassigning global variable for turn tracker
+// }
+    
+    //return itsXsturn; 
 }
 
 
@@ -407,13 +448,98 @@ let whoseTurnIsIt=function(){//call when switching turns
         //need functions to compare if dropping action cards or dropping numbers is optimal
 
 
-let computerStratategyAI=function(computerHand){
 
-    let computerStats =analyzeTheHand(computerHand);//recieving call back pass
-    console.log( computerStats); 
-    
+
+
+let considerSpecialCards=function(computerStatsObject){
+   if (computerStatsObject.actionCards){
+        console.log ("action cards present" + computerStatsObject.actionCards);
+        for (card of computerHand){
+            if (card.special){
+                console.log (card.special);
+                 if (card.special==="DrawTwoCards"){
+                    whoseTurnIsIt(SpecialCardDrawTwoCards("computer"), true);
+                 }
+                 if (card.special==="ReverseCards"){
+                     console.log ("ReverseCards was placed ");
+                     whoseTurnIsIt( SpecialCardReverseCards("computer"), true);
+                 }
+                 if (card.special==="SkipCards"){
+                     whoseTurnIsIt( SpecialCardSkipCards("computer"),true);
+                 }
+                 if (card.special==="Wild"){
+                     
+                     SpecialCardWild("computer");
+                 }
+                if (card.special==="DrawFour"){
+                     SpecialCardDrawFour("computer");
+                   }
+            }  
+        }
+    }
 };
 
-computerStratategyAI(computerHand);
-console.log(computerHand);
+duplicateComputerHand=new Array();
+duplicateDiscardPile=new Array();
+
+
+duplicateComputerHand=computerHand;
+duplicateDiscardPile=discardPile; 
+
+
+let computerStratategyAI=function(computerHand){
+
+   let computerStats =analyzeTheHand(computerHand);//recieving call back pass
+   console.log( computerStats); 
+
+   if (computerStats.numberMatches>computerStats.colorMatches){
+       console.log('numberMatches is greater than colorMatches'); 
+   }
+   else if (computerStats.colorMatches>computerStats.numberMatches){
+       console.log(' colorMatches  greater than numberMatches'); 
+   }
+   else if (computerStats.colorMatches!==0 && computerStats.colorMatches===computerStats.numberMatches){
+       console.log(' colorMatches and numberMatches are equal'); 
+       let choice=getRandomIndex(0, 1);//returns a random number
+       if (choice){
+           console.log(' colorMatches is chosen');
+       }
+       else {
+            console.log(' numberMatches is chosen');
+       }
+
+   }
+
+   else if(computerStats.actionCards>0){//checkimg for action cards
+       console.log("action cards! detected.");
+       considerSpecialCards( computerStats);//what if current action cards were played? 
+   }
+   else if (computerStats.actionCards===0) {
+          console.log("no action cards detected.");
+          //draw a card and consider again 
+          drawACard();  
+          computerStratategyAI(computerHand);
+   }
+
+   return  computerStats; 
+};
+
+
+console.log ("---"); 
+//computerStratategyAI(computerHand);
+//computerStratategyAI(computerHand);
+
+//console.log(computerHand);
+//console.log (discardPile); 
+//console.log (cardDeck); 
+console.log (topOfDiscardPile() );
+
+//considerSpecialCards( computerStratategyAI(computerHand)); 
+   console.log( `${turnTracker("player")}`);
+
+//console.log(whoseTurnIsIt() + "Hello"); 
+
+
+//console.log (whoseTurnIsIt(turnTracker("computer"), true)); 
+computerStratategyAI(new handStats(0,0, 0));
 
